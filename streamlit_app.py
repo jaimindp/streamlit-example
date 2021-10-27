@@ -13,7 +13,7 @@ def formatfunc(*args, **kwargs):
     else:
         return '-${:,.2f}'.format(abs(value))
 
-df = pd.read_csv('saved_trades_26_10_21.csv', error_bad_lines=False)
+df = pd.read_csv('anon_trades_26_10_21.csv', error_bad_lines=False)
 my_df = df[df.trade_time.str.startswith('2')]
 closed = my_df.dropna(subset=['buy_timestamp'])
 closed.twitter_screen_name = '@'+closed.twitter_screen_name
