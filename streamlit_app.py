@@ -1,3 +1,6 @@
+# %%writefile leaderboard2.py
+
+
 
 import streamlit as st
 import streamlit.components.v1 as components
@@ -29,8 +32,8 @@ disp_df.index.name = 'Twitter Handle'
 
 images = os.listdir('images')
 
-st.title("LazyTrade Leaderboard")
-st.subheader('Leaderboard')
+# st.title("Leaderboard")
+st.subheader('Crypto Twitter Leaderboard')
 
 col1, col2, col3 = st.columns([1,1,1])
 
@@ -40,21 +43,24 @@ col2.dataframe(disp_df.style.format(formatter={'Avg PnL': "{:.2f}%", 'Total PnL'
 
 st.subheader('Historical Signals')
 
-users = st.multiselect('Choose users to track ', tuple(['@binance', '@CoinDesk', '@CryptoKaleo', '@cz_binance', '@TheCryptoDog', 
-                                                        '@thescalpingpro', '@Whale_Sniper', '@WhaleTrades']), default=['@CoinDesk'])
+# my_users = sorted(set(['@'+'_'.join(i.split('_')[:-2]) for i in images if i.endswith('USDT.html')]))
+users = st.multiselect('Choose users to track ', tuple(sorted(set(['@'+'_'.join(i.split('_')[:-2]) for i in images if i.endswith('USDT.html')]),
+                                                              key=lambda x: x.lower())), default=['@CoinDesk'])
+
+# users = st.multiselect('Choose users to track ', tuple(['@binance', '@CoinDesk', '@CryptoKaleo', '@cz_binance', '@TheCryptoDog', 
+#                                                         '@thescalpingpro', '@Whale_Sniper', '@WhaleTrades']), default=['@CoinDesk'])
 
 for user in users:
-    coin_list = ['1INCH','ADA','ATOM','AXS','BNB','BTC','DOGE','DOT','ETH','LINK','LTC','LUNA','RUNE','SOL','SUSHI''UNI','XRP']
+#     coin_list = ['1INCH','ADA','ATOM','AXS','BNB','BTC','DOGE','DOT','ETH','LINK','LTC','LUNA','RUNE','SOL','SUSHI''UNI','XRP']
     
-    all_coins = [i[len(user):].split('_')[0] for i in list(filter(lambda x : x.startswith(user[1:]), images))]
-    coin_subset = [i for i in coin_list if i in all_coins]
-        
-    coins = st.multiselect('Choose coins to plot', coin_subset, default=['LTC'])
+    all_coins = sorted([i[len(user):].split('_')[0] for i in list(filter(lambda x : x.startswith(user[1:]) and x.endswith('USDT.html'), images))])
+    coins = st.multiselect('Choose coins to plot', all_coins, default=['BTC' if 'BTC' in all_coins else all_coins[0]])
 
     for coin in coins:
-        st.write('User: %s\n\nCoin: %s' % (user, coin))
+        _, mid, _ = st.columns([1,1,1])
+        mid.subheader('%s %s' % (user, coin))
 #         st.image('images/%s_%s_BTC.png' % (user[1:], coin))
         
-        HtmlFile = open('images/%s_%s_BTC.html' % (user[1:], coin), 'r', encoding='utf-8')
+        HtmlFile = open('images/%s_%s_USDT.html' % (user[1:], coin), 'r', encoding='utf-8')
         source_code_2 = HtmlFile.read()
         components.html(source_code_2, height=700)
