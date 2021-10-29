@@ -1,5 +1,6 @@
 # %%writefile leaderboard2.py
 
+
 import streamlit as st
 import streamlit.components.v1 as components
 import pandas as pd
@@ -39,22 +40,19 @@ col1, col2, col3 = st.columns([1,1,1])
 
 col2.dataframe(disp_df.style.format(formatter={'Avg PnL': "{:.2f}%", 'Total PnL': formatfunc}), width=800, height=1000)
 
-# st.table(disp_df.style.format(formatter={'Avg PnL': "{:.2f}%", 'Total PnL': formatfunc}))
 
 st.subheader('Historical Signals')
-# print(tuple(sorted(set(['@'+'_'.join(i.split('_')[:-2]) for i in images if i.endswith('USDT.html')]),
-#                                                               key=lambda x: x.lower())))
-# my_users = sorted(set(['@'+'_'.join(i.split('_')[:-2]) for i in images if i.endswith('USDT.html')]))
-users = st.multiselect('Choose users to track ', tuple(sorted(set(['@'+'_'.join(i.split('_')[:-2]) for i in images if i.endswith('USDT.html')]),
-                                                              key=lambda x: x.lower())), default=['@CoinDesk'])
 
-# users = st.multiselect('Choose users to track ', tuple(['@binance', '@CoinDesk', '@CryptoKaleo', '@cz_binance', '@TheCryptoDog', 
-#                                                         '@thescalpingpro', '@Whale_Sniper', '@WhaleTrades']), default=['@CoinDesk'])
+users = st.multiselect('Choose users to track ', tuple(sorted(set(['@'+'_'.join(i.split('_')[:-2]) for i in images if i.endswith('USDT.html')]),
+                                                              key=lambda x: x.lower())), default=['@elonmusk'])
 
 for user in users:
 #     coin_list = ['1INCH','ADA','ATOM','AXS','BNB','BTC','DOGE','DOT','ETH','LINK','LTC','LUNA','RUNE','SOL','SUSHI''UNI','XRP']
+
+    anti_coins = ['OMG','OG','HNT','ICX','MKR','CVC']
     
     all_coins = sorted([i[len(user):].split('_')[0] for i in list(filter(lambda x : x.startswith(user[1:]) and x.endswith('USDT.html'), images))])
+    all_coins = [i for i in all_coins if i not in anti_coins]
     coins = st.multiselect('Choose coins to plot', all_coins, default=['BTC' if 'BTC' in all_coins else all_coins[0]])
 
     for coin in coins:
