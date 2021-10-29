@@ -43,7 +43,8 @@ col2.dataframe(disp_df.style.format(formatter={'Avg PnL': "{:.2f}%", 'Total PnL'
 
 st.subheader('Historical Signals')
 all_users = sorted(set(['@'+'_'.join(i.split('_')[:-2]) for i in images if i.endswith('USDT.html')]),key=lambda x: x.lower())
-all_users = [i for i in all_users if i not in ['ArbitrageDaddy', 'JPottuy']]
+all_users = tuple([i for i in all_users if i not in ['ArbitrageDaddy', 'JPottuy']])
+
 users = st.multiselect('Choose users to track ', all_users, default=['@elonmusk'])
 
 for user in users:
