@@ -9,6 +9,8 @@ import matplotlib.pyplot as plt
 import os
 
 st.set_page_config(layout='wide')
+st.write(st.config.get_option("server.enableCORS"))
+
 
 def formatfunc(*args, **kwargs):
     value = args[0]
