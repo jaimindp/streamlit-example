@@ -42,9 +42,9 @@ col2.dataframe(disp_df.style.format(formatter={'Avg PnL': "{:.2f}%", 'Total PnL'
 
 
 st.subheader('Historical Signals')
-
-users = st.multiselect('Choose users to track ', tuple(sorted(set(['@'+'_'.join(i.split('_')[:-2]) for i in images if i.endswith('USDT.html')]),
-                                                              key=lambda x: x.lower())), default=['@elonmusk'])
+all_users = sorted(set(['@'+'_'.join(i.split('_')[:-2]) for i in images if i.endswith('USDT.html')]),key=lambda x: x.lower())
+all_users = [i for i in all_users if i not in ['ArbitrageDaddy', 'JPottuy']]
+users = st.multiselect('Choose users to track ', all_users, default=['@elonmusk'])
 
 for user in users:
 #     coin_list = ['1INCH','ADA','ATOM','AXS','BNB','BTC','DOGE','DOT','ETH','LINK','LTC','LUNA','RUNE','SOL','SUSHI''UNI','XRP']
