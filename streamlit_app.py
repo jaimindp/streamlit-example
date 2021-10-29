@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import os
 
 st.set_page_config(layout='wide')
-st.write(st.config.get_option("server.enableCORS"))
+st.config.get_option("server.enableCORS")
 
 
 def formatfunc(*args, **kwargs):
@@ -42,7 +42,8 @@ col2.dataframe(disp_df.style.format(formatter={'Avg PnL': "{:.2f}%", 'Total PnL'
 # st.table(disp_df.style.format(formatter={'Avg PnL': "{:.2f}%", 'Total PnL': formatfunc}))
 
 st.subheader('Historical Signals')
-
+# print(tuple(sorted(set(['@'+'_'.join(i.split('_')[:-2]) for i in images if i.endswith('USDT.html')]),
+#                                                               key=lambda x: x.lower())))
 # my_users = sorted(set(['@'+'_'.join(i.split('_')[:-2]) for i in images if i.endswith('USDT.html')]))
 users = st.multiselect('Choose users to track ', tuple(sorted(set(['@'+'_'.join(i.split('_')[:-2]) for i in images if i.endswith('USDT.html')]),
                                                               key=lambda x: x.lower())), default=['@CoinDesk'])
