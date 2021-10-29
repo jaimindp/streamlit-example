@@ -1,6 +1,7 @@
 # %%writefile leaderboard2.py
 
 
+
 import streamlit as st
 import streamlit.components.v1 as components
 import pandas as pd
@@ -30,6 +31,7 @@ sum_group  = closed.groupby('twitter_screen_name')['twitter_screen_name', 'dolla
 disp_df = mean_group.join(sum_group)
 disp_df.columns = ['Avg PnL', 'Total PnL']
 disp_df.index.name = 'Twitter Handle'
+disp_df = disp_df[~disp_df.index.isin(['@ArbitrageDaddy','@JPottuy','@Tradermayne','@LazyTradeBot','@thescalpingpro','@Bitstamp','@cryptonews'])]
 
 images = os.listdir('images')
 
