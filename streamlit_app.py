@@ -1,6 +1,5 @@
 # %%writefile streamlit_app.py
 
-
 import streamlit as st
 import streamlit.components.v1 as components
 import pandas as pd
@@ -30,17 +29,17 @@ disp_df = mean_group.join(sum_group)
 disp_df.columns = ['Avg PnL', 'Total PnL']
 disp_df.index.name = 'Twitter Handle'
 disp_df = disp_df[~disp_df.index.isin(['@ArbitrageDaddy','@JPottuy','@Tradermayne','@LazyTradeBot','@thescalpingpro','@Bitstamp','@cryptonews'])]
+disp_df.sort_values(by='Total PnL', ascending=False, inplace=True)
 
 images = os.listdir('images')
 
 # st.title("Leaderboard")
 st.subheader('Crypto Twitter Leaderboard')
-st.write("Leaderboard based on realised PnL of each account's followers")
+st.write("Leaderboard based on realised PnL of each account's followers executing trades based on their tweets")
 
 col1, col2, col3 = st.columns([1,1,1])
 
 col2.dataframe(disp_df.style.format(formatter={'Avg PnL': "{:.2f}%", 'Total PnL': formatfunc}), width=800, height=1000)
-
 
 st.subheader('Historical Signals')
 all_users = sorted(set(['@'+'_'.join(i.split('_')[:-2]) for i in images if i.endswith('USDT.html')]),key=lambda x: x.lower())
