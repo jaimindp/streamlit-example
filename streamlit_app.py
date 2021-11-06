@@ -1,5 +1,4 @@
-# %%writefile leaderboard2.py
-
+# %%writefile streamlit_app.py
 
 
 import streamlit as st
@@ -12,7 +11,6 @@ import os
 
 st.set_page_config(layout='wide')
 st.config.get_option("server.enableCORS")
-
 
 def formatfunc(*args, **kwargs):
     value = args[0]
@@ -37,6 +35,7 @@ images = os.listdir('images')
 
 # st.title("Leaderboard")
 st.subheader('Crypto Twitter Leaderboard')
+st.write('Leaderboard based on realised profits and losses of the followers of the account shown')
 
 col1, col2, col3 = st.columns([1,1,1])
 
