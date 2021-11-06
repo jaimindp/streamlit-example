@@ -35,7 +35,7 @@ images = os.listdir('images')
 
 # st.title("Leaderboard")
 st.subheader('Crypto Twitter Leaderboard')
-st.write('Leaderboard based on realised profits and losses of the followers of the account shown')
+st.write("Leaderboard based on realised PnL of each account's followers")
 
 col1, col2, col3 = st.columns([1,1,1])
 
